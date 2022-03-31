@@ -58,33 +58,38 @@
         android:id="@+id/letra3"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginStart="112dp"
-        android:background="@drawable/circuloazul"
+        android:layout_marginStart="104dp"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="-30"
         android:text="@string/espacio"
         android:textColor="#311B92"
         app:layout_constraintBottom_toTopOf="@+id/letraObligatoria"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.widget.Button
         android:id="@+id/letra5"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginStart="112dp"
-        android:background="@drawable/circuloazul"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="-30"
         android:text="@string/espacio"
         android:textColor="#311B92"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
-        app:layout_constraintVertical_bias="0.099" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.widget.Button
         android:id="@+id/letra6"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:background="@drawable/circuloazul"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="-30"
         android:text="@string/espacio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/letraObligatoria"
@@ -96,12 +101,14 @@
         android:id="@+id/letra2"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/circuloazul"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="30"
         android:text="@string/espacio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/letraObligatoria"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,20 +116,25 @@
         android:id="@+id/letra1"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginEnd="112dp"
-        android:background="@drawable/circuloazul"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="30"
         android:text="@string/espacio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
-        app:layout_constraintVertical_bias="0.099" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.widget.Button
         android:id="@+id/letraObligatoria"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:background="@drawable/botoncentro"
+        android:background="@drawable/hexagonorojo"
+        android:rotation="30"
         android:text="@string/espacio"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,12 +144,13 @@
         android:id="@+id/letra4"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginEnd="112dp"
-        android:background="@drawable/circuloazul"
+        android:layout_marginEnd="104dp"
+        android:background="@drawable/hexagonoazulfuerte"
+        android:rotation="30"
         android:text="@string/espacio"
         app:layout_constraintBottom_toTopOf="@+id/letraObligatoria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
