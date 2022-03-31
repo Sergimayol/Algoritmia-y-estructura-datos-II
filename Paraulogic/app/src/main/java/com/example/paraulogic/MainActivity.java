@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private int[] listaIDbotones;
+    private char[] listaLetras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.listaIDbotones = new int[7];
+        this.listaLetras = new char[7];
         this.listaIDbotones[0] = R.id.letraObligatoria;
         this.listaIDbotones[1] = R.id.letra1;
         this.listaIDbotones[2] = R.id.letra2;
@@ -26,17 +28,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button button = (Button) findViewById(this.listaIDbotones[i]);
             button.setOnClickListener(this);
         }
+        Button button = (Button) findViewById(R.id.shuffle);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.suprimir);
+        button.setOnClickListener(this);
+        configLetters();
     }
 
     @Override
     public void onClick(View view) {
+        String texto = "";
+        boolean clear = false;
         int id = view.getId();
-        Button button = (Button) findViewById(id);
-        changeTextViewText(button.getText().toString(), id);
+        if (id == R.id.suprimir) {
+            texto = " ";
+            clear = true;
+        } else if (id == R.id.shuffle) {
+            shuffleLetters();
+        } else {
+            Button button = (Button) findViewById(id);
+            texto = button.getText().toString();
+        }
+        changeTextViewText(texto, R.id.displayletras, clear);
     }
 
-    private void changeTextViewText(String s, int i) {
+    private void changeTextViewText(String s, int i, boolean clear) {
         TextView textView = (TextView) findViewById(i);
-        textView.setText(s);
+        if (clear){
+            textView.setText(s);
+        }else{
+            textView.append(s);
+        }
+    }
+
+    private void shuffleLetters(){
+
+    }
+
+    private void configLetters(){
+
     }
 }
