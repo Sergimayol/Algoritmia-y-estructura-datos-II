@@ -10,15 +10,14 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     private int[] listaIDbotones;
-    private char[] listaLetras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.listaIDbotones = new int[7];
-        this.listaLetras = new char[7];
         this.listaIDbotones[0] = R.id.letraObligatoria;
         this.listaIDbotones[1] = R.id.letra1;
         this.listaIDbotones[2] = R.id.letra2;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             texto = " ";
             clear = true;
         } else if (id == R.id.shuffle) {
-            shuffleLetters();
+            configLetters();
         } else {
             Button button = (Button) findViewById(id);
             texto = button.getText().toString();
@@ -56,27 +55,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void changeTextViewText(String s, int i, boolean clear) {
         TextView textView = (TextView) findViewById(i);
-        if (clear){
+        if (clear) {
             textView.setText(s);
-        }else{
+        } else {
             textView.append(s);
         }
     }
 
-    private void shuffleLetters(){
+    private void changeTextButton(String s, int i) {
+        Button b = (Button) findViewById(i);
+        b.setText(s);
+    }
+
+    private void configLetters() {
+        char[] aux = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
         Random rand = new Random();
-        for (int i = 0; i < this.listaLetras.length; i++) {
-            int randomIndexToSwap = rand.nextInt(this.listaLetras.length);
-            int temp = this.listaLetras[randomIndexToSwap];
-            this.listaLetras[randomIndexToSwap] = this.listaLetras[i];
-            this.listaLetras[i] = (char) temp;
+        for (int i = 0; i < aux.length; i++) {
+            int randomIndexToSwap = rand.nextInt(aux.length);
+            int temp = aux[randomIndexToSwap];
+            aux[randomIndexToSwap] = aux[i];
+            aux[i] = (char) temp;
         }
-        for (int j = 0; j<this.listaLetras.length; j++){
-            changeTextViewText(String.valueOf(this.listaLetras[j]),this.listaIDbotones[j], false);
+        for (int j = 0; j < aux.length; j++) {
+            changeTextButton(String.valueOf(aux[j]), this.listaIDbotones[j]);
         }
     }
 
-    private void configLetters(){
-
-    }
 }

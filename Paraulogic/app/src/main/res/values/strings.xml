@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Paraulogic</string>
+    <string name="suprimir">Suprimir</string>
+    <string name="suffle">suffle</string>
+    <string name="espacio">" "</string>
+    <string name="paraulogic">Paraulogic!</string>
 </resources>
