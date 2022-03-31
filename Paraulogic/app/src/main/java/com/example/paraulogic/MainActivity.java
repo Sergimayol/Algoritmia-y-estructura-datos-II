@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private int[] listaIDbotones;
     private char[] listaLetras;
@@ -62,7 +64,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void shuffleLetters(){
-
+        Random rand = new Random();
+        for (int i = 0; i < this.listaLetras.length; i++) {
+            int randomIndexToSwap = rand.nextInt(this.listaLetras.length);
+            int temp = this.listaLetras[randomIndexToSwap];
+            this.listaLetras[randomIndexToSwap] = this.listaLetras[i];
+            this.listaLetras[i] = (char) temp;
+        }
+        for (int j = 0; j<this.listaLetras.length; j++){
+            changeTextViewText(String.valueOf(this.listaLetras[j]),this.listaIDbotones[j], false);
+        }
     }
 
     private void configLetters(){
