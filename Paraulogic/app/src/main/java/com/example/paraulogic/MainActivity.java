@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -68,10 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void configLetters() {
-        char[] aux = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
-        Random rand = new Random();
-        for (int i = 0; i < aux.length; i++) {
-            int randomIndexToSwap = rand.nextInt(aux.length);
+        UnsortedArraySet<Character> letras = new UnsortedArraySet<>(7);
+        Random rand;
+        for (int i = 0; i < 7; i++) {
+            rand = new Random();
+            letras.add((char) (rand.nextInt(26) + 'a'));
+        }
+        rand = new Random();
+        Iterator it = letras.iterator();
+        for (int i = 0; it.hasNext(); i++) {
+            int randomIndexToSwap = rand.nextInt(7);
+            //Character aux =
             int temp = aux[randomIndexToSwap];
             aux[randomIndexToSwap] = aux[i];
             aux[i] = (char) temp;
