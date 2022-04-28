@@ -78,15 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rand = new Random();
         Iterator it = letras.iterator();
         for (int i = 0; it.hasNext(); i++) {
-            int randomIndexToSwap = rand.nextInt(7);
-            //Character aux =
-            int temp = aux[randomIndexToSwap];
-            aux[randomIndexToSwap] = aux[i];
-            aux[i] = (char) temp;
+
         }
-        for (int j = 0; j < aux.length; j++) {
+        /*for (int j = 0; j < aux.length; j++) {
             changeTextButton(String.valueOf(aux[j]), this.listaIDbotones[j]);
-        }
+        }*/
     }
 
 }
