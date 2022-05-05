@@ -13,6 +13,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int[] listaIDbotones;
+    private UnsortedArraySet<Character> conjuntoLetras;
+    private BSTMapping<String, Integer> mapping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button = (Button) findViewById(R.id.suprimir);
         button.setOnClickListener(this);
         configLetters();
+        this.mapping = new BSTMapping();
     }
 
     @Override
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             texto = " ";
             clear = true;
         } else if (id == R.id.shuffle) {
-            configLetters();
+            shuffleLetters();
         } else {
             Button button = (Button) findViewById(id);
             texto = button.getText().toString();
@@ -63,26 +66,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeTextButton(String s, int i) {
+    private void changeTextButton(Character s, int i) {
         Button b = (Button) findViewById(i);
-        b.setText(s);
+        b.setText(s.toString());
     }
 
+    /*
+     * Configuración aleatoria del conjunto de letras e adición letras botones.
+     * Este método crea un conjunto de 7 letras alearotias y asigna a los botones
+     * las letars del cojunto.
+     */
     private void configLetters() {
-        UnsortedArraySet<Character> letras = new UnsortedArraySet<>(7);
-        Random rand;
+        this.conjuntoLetras = new UnsortedArraySet<>(7);
+        Random ran = new Random();
         for (int i = 0; i < 7; i++) {
-            rand = new Random();
-            letras.add((char) (rand.nextInt(26) + 'a'));
+            if (!conjuntoLetras.add((char) (ran.nextInt(26) + 'A'))) {
+                i--;
+            }
         }
-        rand = new Random();
-        Iterator it = letras.iterator();
-        for (int i = 0; it.hasNext(); i++) {
+        Iterator it = conjuntoLetras.iterator();
+        int j = 0;
+        while (it.hasNext()) {
+            changeTextButton((Character) it.next(), this.listaIDbotones[j]);
+            j++;
+        }
+    }
 
-        }
-        /*for (int j = 0; j < aux.length; j++) {
-            changeTextButton(String.valueOf(aux[j]), this.listaIDbotones[j]);
-        }*/
+    private void shuffleLetters() {
+        // To do
     }
 
 }

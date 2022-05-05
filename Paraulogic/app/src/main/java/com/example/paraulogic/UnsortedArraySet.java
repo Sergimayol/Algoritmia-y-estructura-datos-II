@@ -3,6 +3,8 @@ package com.example.paraulogic;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import Utilities.Set;
+
 /**
  * Clase para contener un conjunto de elementos, esta será empleada para almacenar el conjunto
  * de letras de las que se dispone.

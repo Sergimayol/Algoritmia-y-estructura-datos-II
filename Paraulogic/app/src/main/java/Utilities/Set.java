@@ -1,4 +1,4 @@
-package com.example.paraulogic;
+package Utilities;
 
 import java.util.Iterator;
 
