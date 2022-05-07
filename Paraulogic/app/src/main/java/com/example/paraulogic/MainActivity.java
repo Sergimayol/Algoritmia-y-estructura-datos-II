@@ -1,5 +1,6 @@
 package com.example.paraulogic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeTextButton(Character s, int i) {
+    private void changeTextButton(@NonNull Character s, int i) {
         Button b = (Button) findViewById(i);
         b.setText(s.toString());
     }
@@ -93,7 +95,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void shuffleLetters() {
-        // To do
+        Iterator it = this.conjuntoLetras.iterator();
+        ArrayList<Character> arr = new ArrayList<>();
+        while (it.hasNext()) {
+            arr.add((Character) it.next());
+        }
+        Character c = arr.remove(0);
+        this.conjuntoLetras = new UnsortedArraySet(7);
+        Random rand = new Random();
+        for (int i = 0; i < arr.size(); i++) {
+            int randomIndexToSwap = rand.nextInt(arr.size());
+            Character temp = arr.get(randomIndexToSwap);
+            arr.set(randomIndexToSwap, arr.get(i));
+            arr.set(i, temp);
+        }
+        this.conjuntoLetras.add(c);
+        changeTextButton(c, this.listaIDbotones[0]);
+        for (int i = 0; i < arr.size(); i++) {
+            changeTextButton(arr.get(i), this.listaIDbotones[i + 1]);
+            this.conjuntoLetras.add(arr.get(i));
+        }
     }
 
 }

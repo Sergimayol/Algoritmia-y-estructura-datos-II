@@ -36,23 +36,24 @@
         android:layout_width="132dp"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/suprimir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/shuffle"
-        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/shuffle"
         android:layout_width="118dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/shuffle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.widget.Button
         android:id="@+id/letra3"
@@ -145,5 +146,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/Introducir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
