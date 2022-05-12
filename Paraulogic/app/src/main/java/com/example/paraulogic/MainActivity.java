@@ -15,6 +15,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int[] listaIDbotones;
+    private char[] listaLetras;
     private UnsortedArraySet<Character> conjuntoLetras;
     private BSTMapping<String, Integer> mapping;
 
@@ -38,8 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.suprimir);
         button.setOnClickListener(this);
-        configLetters();
+        button = (Button) findViewById(R.id.introducir);
+        button.setOnClickListener(this);
         this.mapping = new BSTMapping();
+        this.listaLetras = new char[7];
+        configLetters();
     }
 
     @Override
@@ -52,6 +56,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             clear = true;
         } else if (id == R.id.shuffle) {
             shuffleLetters();
+        } else if (id == R.id.introducir) {
+            TextView res = (TextView) findViewById(id);
+            String pal = res.getText().toString();
+            //Min 3 letras
+            //Contener letra principal
+            char aux = this.listaLetras[0];
+            if ((pal.length() >= 3) && pal.contains(aux)) {
+                Integer val = this.mapping.get(pal);
+                if (val == null) {
+                    this.mapping.put(pal, 1);
+                } else {
+                    this.mapping.put(pal, val + 1);
+                }
+            }
         } else {
             Button button = (Button) findViewById(id);
             texto = button.getText().toString();
@@ -81,11 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void configLetters() {
         this.conjuntoLetras = new UnsortedArraySet<>(7);
         Random ran = new Random();
+        char aux;
         for (int i = 0; i < 7; i++) {
-            if (!conjuntoLetras.add((char) (ran.nextInt(26) + 'A'))) {
+            aux = (char) (ran.nextInt(26) + 'A');
+            if (!conjuntoLetras.add(aux)) {
                 i--;
+            } else {
+                this.listaLetras[i] = aux;
             }
         }
+        System.out.println(this.listaLetras);
         Iterator it = conjuntoLetras.iterator();
         int j = 0;
         while (it.hasNext()) {
