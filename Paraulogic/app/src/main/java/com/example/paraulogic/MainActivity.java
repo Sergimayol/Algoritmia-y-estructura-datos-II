@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private char[] listaLetras;
     private UnsortedArraySet<Character> conjuntoLetras;
     private BSTMapping<String, Integer> mapping;
+    private ArrayList<String> clavesMapping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         this.mapping = new BSTMapping();
         this.listaLetras = new char[7];
+        this.clavesMapping = new ArrayList<>();
         configLetters();
     }
 
@@ -52,29 +55,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean clear = false;
         int id = view.getId();
         if (id == R.id.suprimir) {
-            texto = " ";
+            TextView res = (TextView) findViewById(R.id.displayletras);
+            StringBuilder str = new StringBuilder(res.getText().toString());
+            str.deleteCharAt(str.length() - 1);
+            texto = str.toString();
             clear = true;
         } else if (id == R.id.shuffle) {
             shuffleLetters();
         } else if (id == R.id.introducir) {
-            TextView res = (TextView) findViewById(id);
+            TextView res = (TextView) findViewById(R.id.displayletras);
             String pal = res.getText().toString();
-            //Min 3 letras
-            //Contener letra principal
-            char aux = this.listaLetras[0];
+            String aux = String.valueOf(this.listaLetras[0]);
+            //Min 3 letras y Contener letra principal
             if ((pal.length() >= 3) && pal.contains(aux)) {
                 Integer val = this.mapping.get(pal);
                 if (val == null) {
                     this.mapping.put(pal, 1);
+                    this.clavesMapping.add(pal);
+                    Collections.sort(this.clavesMapping);
                 } else {
                     this.mapping.put(pal, val + 1);
                 }
+                updateDisplayWords();
+                texto = " ";
             }
         } else {
             Button button = (Button) findViewById(id);
             texto = button.getText().toString();
         }
         changeTextViewText(texto, R.id.displayletras, clear);
+    }
+
+    private void updateDisplayWords() {
+        StringBuilder res = new StringBuilder("Has encontrado ");
+        res.append(this.clavesMapping.size());
+        res.append(" palabras: ");
+        for (int i = 0; i < this.clavesMapping.size(); i++) {
+            res.append(this.clavesMapping.get(i));
+            res.append("(");
+            res.append(this.mapping.get(this.clavesMapping.get(i)));
+            res.append("), ");
+        }
+        res.deleteCharAt(res.length() - 1);
+        changeTextViewText(res.toString(), R.id.palEncontradas, true);
     }
 
     private void changeTextViewText(String s, int i, boolean clear) {

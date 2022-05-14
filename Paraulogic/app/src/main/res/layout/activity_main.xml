@@ -32,15 +32,25 @@
         app:layout_constraintTop_toBottomOf="@+id/tituloPraulogic" />
 
     <Button
+        android:id="@+id/introducir"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="152dp"
+        android:text="@string/Introducir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/suprimir"
         android:layout_width="132dp"
         android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="152dp"
         android:text="@string/suprimir"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/shuffle"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -48,52 +58,24 @@
         android:layout_width="118dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="104dp"
         android:text="@string/shuffle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.widget.Button
-        android:id="@+id/letra3"
+        android:id="@+id/letra4"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginEnd="92dp"
         android:background="@drawable/hexagonoazulfuerte1"
         android:text="@string/espacio"
-        android:textColor="#311B92"
         app:layout_constraintBottom_toTopOf="@+id/letraObligatoria"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
-    <android.widget.Button
-        android:id="@+id/letra5"
-        android:layout_width="89dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/hexagonoazulfuerte1"
-        android:text="@string/espacio"
-        android:textColor="#311B92"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <android.widget.Button
-        android:id="@+id/letra6"
-        android:layout_width="89dp"
-        android:layout_height="89dp"
-        android:background="@drawable/hexagonoazulfuerte1"
-        android:text="@string/espacio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/letraObligatoria"
-        app:layout_constraintHorizontal_bias="0.708"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
         android:id="@+id/letra2"
@@ -107,21 +89,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/letraObligatoria"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.439" />
 
     <android.widget.Button
-        android:id="@+id/letra1"
+        android:id="@+id/letra6"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/hexagonoazulfuerte1"
         android:text="@string/espacio"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/letraObligatoria"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.439" />
 
     <android.widget.Button
         android:id="@+id/letraObligatoria"
@@ -133,28 +115,60 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.439" />
 
     <android.widget.Button
-        android:id="@+id/letra4"
+        android:id="@+id/letra5"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/hexagonoazulfuerte1"
         android:text="@string/espacio"
-        app:layout_constraintBottom_toTopOf="@+id/letraObligatoria"
+        android:textColor="#311B92"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.widget.Button
+        android:id="@+id/letra1"
+        android:layout_width="89dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/hexagonoazulfuerte1"
+        android:text="@string/espacio"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/letraObligatoria"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.widget.Button
+        android:id="@+id/letra3"
+        android:layout_width="89dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="112dp"
+        android:background="@drawable/hexagonoazulfuerte1"
+        android:text="@string/espacio"
+        android:textColor="#311B92"
+        app:layout_constraintBottom_toTopOf="@+id/letraObligatoria"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/introducir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/Introducir"
+    <TextView
+        android:id="@+id/palEncontradas"
+        android:layout_width="320dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/espacio"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
