@@ -3,6 +3,7 @@ package com.example.paraulogic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String EXTRA_MESSAGE = "show_info";
     private int[] listaIDbotones;
     private char[] listaLetras;
     private UnsortedArraySet<Character> conjuntoLetras;
@@ -163,4 +165,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void showInfo(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        String message = " Hello world !";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 }
