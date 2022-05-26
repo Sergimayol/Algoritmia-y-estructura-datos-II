@@ -6,7 +6,8 @@ import java.util.Iterator;
 import Utilities.Set;
 
 /**
- * Clase para contener un conjunto de elementos, esta será empleada para almacenar el conjunto
+ * Clase para contener un conjunto de elementos, esta será empleada para
+ * almacenar el conjunto
  * de letras de las que se dispone.
  *
  * @param <E>
@@ -31,7 +32,7 @@ public class UnsortedArraySet<E> implements Set<E> {
      * O(n): cerca lineal
      *
      * @param elem
-     * @return
+     * @return boolean
      */
     @Override
     public boolean contains(E elem) {
@@ -48,7 +49,7 @@ public class UnsortedArraySet<E> implements Set<E> {
      * conjunt (cerca lineal)
      *
      * @param elem
-     * @return
+     * @return boolean
      */
     @Override
     public boolean add(E elem) {
@@ -71,7 +72,7 @@ public class UnsortedArraySet<E> implements Set<E> {
      * element ha de situar-se a la posició alliberada
      *
      * @param elem
-     * @return
+     * @return boolean
      */
     @Override
     public boolean remove(E elem) {
@@ -88,7 +89,7 @@ public class UnsortedArraySet<E> implements Set<E> {
     /**
      * O(1)
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isEmpty() {
@@ -96,7 +97,7 @@ public class UnsortedArraySet<E> implements Set<E> {
     }
 
     /**
-     * @return
+     * @return IteratorUnsortedArraySet
      */
     @Override
     public Iterator iterator() {
@@ -104,7 +105,9 @@ public class UnsortedArraySet<E> implements Set<E> {
     }
 
     /**
-     * @return
+     * to string method
+     * 
+     * @return String
      */
     @Override
     public String toString() {

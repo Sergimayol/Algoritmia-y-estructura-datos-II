@@ -11,4 +11,12 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
     }
+
+    /**
+     * Muestra el conjunto de soluciones con el conjunto de letras.
+     */
+    private void showInfo() {
+
+    }
+
 }
