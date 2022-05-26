@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BSTMapping<String, Integer> mapping;
     // Lista contenedora de las claves del conjunto de las palabras encontradas.
     private ArrayList<String> clavesMapping;
+    // Lista contenedora de las palabras que se pueden formar a partir 
+    // del conjunto de letras.
+    private TreeSet<String> listaPalabras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.mapping = new BSTMapping();
         this.listaLetras = new char[7];
         this.clavesMapping = new ArrayList<>();
+        this.listaPalabras = new TreeSet<>();
         configLetters();
     }
 
@@ -267,4 +271,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
+
+    /**
+     * Lee el diccionario de palabras y analiza las palabras que pueden ser
+     * una posible solución.
+     * 
+     * @return String
+     */
+    private String getDictionary() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            InputStream is = getResources().openRawResource(R.raw.catala_filtrat);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Comprobar si cumple las conciones para ser una poasible solucion
+                if (true) {
+                    // Añadir a la lista de palabras
+                    this.listaPalabras.add(line);
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el diccionario, error: " + e.getMessage());
+        }
+        return sb.toString();
+    }
+    
 }
