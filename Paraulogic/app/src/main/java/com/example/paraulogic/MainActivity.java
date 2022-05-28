@@ -3,18 +3,25 @@ package com.example.paraulogic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.TreeSet;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     // Clave para acceder a la lista de soluciones.
     public static final String EXTRA_MESSAGE = "show_info";
@@ -44,43 +51,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.listaIDbotones[4] = R.id.letra4;
         this.listaIDbotones[5] = R.id.letra5;
         this.listaIDbotones[6] = R.id.letra6;
-        for (int i = 0; i < this.listaIDbotones.length; i++) {
-            Button button = (Button) findViewById(this.listaIDbotones[i]);
-            button.setOnClickListener(this);
-        }
-        Button button = (Button) findViewById(R.id.shuffle);
-        button.setOnClickListener(this);
-        button = (Button) findViewById(R.id.suprimir);
-        button.setOnClickListener(this);
-        button = (Button) findViewById(R.id.introducir);
-        button.setOnClickListener(this);
         this.mapping = new BSTMapping();
         this.listaLetras = new char[7];
         this.clavesMapping = new ArrayList<>();
         this.listaPalabras = new TreeSet<>();
         configLetters();
+        getDictionary();
     }
 
     /**
      * Borra la última letra en el display de letras.
-     * 
-     * @param view
      */
-    private void suprimir(View view) {
+    public void suprimir(View view) {
         int id = R.id.displayletras;
         TextView res = (TextView) findViewById(id);
         StringBuilder str = new StringBuilder(res.getText().toString());
-        str.deleteCharAt(str.length() - 1);
+        if (str.length() > 0) {
+            str.deleteCharAt(str.length() - 1);
+        }
         changeTextViewText(str.toString(), id, true);
     }
 
     /**
      * Mezcla las letras displonibles menos la letra obligatoria.
-     * 
+     *
      * @Todo: Cambiar mezcla, no es neceserio que se mezcle el conjunto sino
-     *        que solo se mezcle "listaLetras".
+     * que solo se mezcle "listaLetras".
      */
-    private void shuffleLetters() {
+    public void shuffleLetters(View view) {
         Iterator it = this.conjuntoLetras.iterator();
         ArrayList<Character> arr = new ArrayList<>();
         while (it.hasNext()) {
@@ -107,17 +105,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Permite comporbar si la palabra introducida es correcta. Si es correcta
      * se añade al conjunto de soluciones encontradas por el usuario y se elimina
      * la palabra del display.
-     * 
-     * @Todo: Cambiar las condiciones de comprobación de la palabra. Adaptar al
-     *        último modelo.
      */
-    private void introducir() {
+    public void introducir(View view) {
         int id = R.id.displayletras;
         TextView res = (TextView) findViewById(id);
         String pal = res.getText().toString();
-        String aux = String.valueOf(this.listaLetras[0]);
-        // Min 3 letras y Contener letra principal
-        if ((pal.length() >= 3) && pal.contains(aux)) {
+        if (this.listaPalabras.contains(pal.toLowerCase())) {
             Integer val = this.mapping.get(pal);
             if (val == null) {
                 this.mapping.put(pal, 1);
@@ -127,58 +120,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this.mapping.put(pal, val + 1);
             }
             updateDisplayWords();
-        }
-        changeTextViewText(" ", id, false);
-    }
-
-    /**
-     * 
-     * @Todo: Eliminar --> Hacer un método para cada opción.
-     */
-    @Override
-    public void onClick(View view) {
-        String texto = "";
-        boolean clear = false;
-        int id = view.getId();
-        if (id == R.id.suprimir) {
-            TextView res = (TextView) findViewById(R.id.displayletras);
-            StringBuilder str = new StringBuilder(res.getText().toString());
-            str.deleteCharAt(str.length() - 1);
-            texto = str.toString();
-            clear = true;
-        } else if (id == R.id.shuffle) {
-            shuffleLetters();
-        } else if (id == R.id.introducir) {
-            TextView res = (TextView) findViewById(R.id.displayletras);
-            String pal = res.getText().toString();
-            String aux = String.valueOf(this.listaLetras[0]);
-            // Min 3 letras y Contener letra principal
-            if ((pal.length() >= 3) && pal.contains(aux)) {
-                Integer val = this.mapping.get(pal);
-                if (val == null) {
-                    this.mapping.put(pal, 1);
-                    this.clavesMapping.add(pal);
-                    Collections.sort(this.clavesMapping);
-                } else {
-                    this.mapping.put(pal, val + 1);
-                }
-                updateDisplayWords();
-                texto = " ";
-            }
+            changeTextViewText("", id, true);
         } else {
-            Button button = (Button) findViewById(id);
-            texto = button.getText().toString();
+            Context context = getApplicationContext();
+            CharSequence text = " PALABRA INCORRECTA :c !";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
-        changeTextViewText(texto, R.id.displayletras, clear);
     }
 
     /**
      * Añade la letra pulsada al display de letras.
      */
-    private void addLettertoDisplay(View view) {
+    public void addLettertoDisplay(View view) {
         int id = view.getId();
         Button button = (Button) findViewById(id);
-        changeTextViewText(button.getText().toString(), id, false);
+        changeTextViewText(button.getText().toString(), R.id.displayletras, false);
     }
 
     /**
@@ -190,57 +148,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         res.append(this.clavesMapping.size());
         res.append(" palabras: ");
         for (int i = 0; i < this.clavesMapping.size(); i++) {
-            res.append(this.clavesMapping.get(i));
+            res.append(this.clavesMapping.get(i).toLowerCase());
             res.append("(");
             res.append(this.mapping.get(this.clavesMapping.get(i)));
             res.append("), ");
         }
+        res.deleteCharAt(res.length() - 1);
         res.deleteCharAt(res.length() - 1);
         changeTextViewText(res.toString(), R.id.palEncontradas, true);
     }
 
     /**
      * Cambia el texto de un TextView.
-     * 
-     * @param text
-     *              Texto a mostrar.
-     * @param id
-     *              ID del TextView.
-     * @param clear
-     *              Indica si se borra el texto o no.
+     *
+     * @param text  Texto a mostrar.
+     * @param id    ID del TextView.
+     * @param clear Indica si se borra el texto o no.
      */
-    private void changeTextViewText(String s, int i, boolean clear) {
-        TextView textView = (TextView) findViewById(i);
+    private void changeTextViewText(String text, int id, boolean clear) {
+        TextView textView = (TextView) findViewById(id);
         if (clear) {
-            textView.setText(s);
+            textView.setText(text);
         } else {
-            textView.append(s);
+            textView.append(text);
         }
     }
 
     /**
      * Cambia el texto de un Button.
-     * 
-     * @param c
-     *           Letra a mostrar.
-     * @param id
-     *           ID del Button.
+     *
+     * @param c  Letra a mostrar.
+     * @param id ID del Button.
      */
-    private void changeTextButton(@NonNull Character s, int i) {
-        Button b = (Button) findViewById(i);
-        b.setText(s.toString());
+    private void changeTextButton(@NonNull Character c, int id) {
+        Button b = (Button) findViewById(id);
+        b.setText(c.toString());
     }
 
-    /*
+    /**
      * Configuración aleatoria del conjunto de letras e adición letras botones.
      * Este método crea un conjunto de 7 letras alearotias y asigna a los botones
      * las letars del cojunto.
+     *
+     * @TODO: Hacer que se cree sí o sí un tuti
      */
     private void configLetters() {
         this.conjuntoLetras = new UnsortedArraySet<>(7);
         Random ran = new Random();
-        char aux;
-        for (int i = 0; i < 7; i++) {
+        char aux = (char) (ran.nextInt(5) + 'A');
+        this.listaLetras[0] = aux;
+        conjuntoLetras.add(aux);
+        for (int i = 1; i < 7; i++) {
             aux = (char) (ran.nextInt(26) + 'A');
             if (!conjuntoLetras.add(aux)) {
                 i--;
@@ -260,14 +218,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Muestra el conjunto disponible de soluciones de palabras que se pueden
      * crear a partir del conjunto de letras que se proporciona.
-     * 
-     * @Todo Implementar
-     * 
-     * @param view
+     *
+     * @Todo Comprobar si hay algun tuti
      */
-    private void showInfo(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        String message = " Hello world !";
+    public void showInfo(View view) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        //Comprobar si hay algun tuti
+
+        String message = this.listaPalabras.toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
@@ -275,27 +233,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Lee el diccionario de palabras y analiza las palabras que pueden ser
      * una posible solución.
-     * 
-     * @return String
      */
-    private String getDictionary() {
-        StringBuilder sb = new StringBuilder();
+    private void getDictionary() {
         try {
             InputStream is = getResources().openRawResource(R.raw.catala_filtrat);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line;
-            while ((line = br.readLine()) != null) {
+            line = br.readLine();
+            while (line != null) {
+                boolean contiene = false;
                 // Comprobar si cumple las conciones para ser una poasible solucion
-                if (true) {
+                for (int i = 0; i < line.length(); i++) {
+                    if (this.conjuntoLetras.contains(line.toUpperCase().charAt(i))) {
+                        contiene = true;
+                    } else {
+                        contiene = false;
+                        break;
+                    }
+                }
+                if (contiene) {
                     // Añadir a la lista de palabras
                     this.listaPalabras.add(line);
                 }
+                line = br.readLine();
             }
             br.close();
+            System.out.println("Lista: " + this.listaPalabras.toString());
         } catch (IOException e) {
             System.out.println("Error al leer el diccionario, error: " + e.getMessage());
         }
-        return sb.toString();
     }
-    
+
 }
