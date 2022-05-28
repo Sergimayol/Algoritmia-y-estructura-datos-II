@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         this.listaIDbotones[4] = R.id.letra4;
         this.listaIDbotones[5] = R.id.letra5;
         this.listaIDbotones[6] = R.id.letra6;
+        init();
+    }
+
+    private void init() {
         this.mapping = new BSTMapping();
         this.listaLetras = new char[7];
         this.clavesMapping = new ArrayList<>();
