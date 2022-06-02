@@ -78,12 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Mezcla las letras displonibles menos la letra obligatoria.
-     *
-     * @Todo: Cambiar mezcla, no es neceserio que se mezcle el conjunto sino
-     * que solo se mezcle "listaLetras".
      */
     public void shuffleLetters(View view) {
-        Iterator it = this.conjuntoLetras.iterator();
+        /*Iterator it = this.conjuntoLetras.iterator();
         ArrayList<Character> arr = new ArrayList<>();
         while (it.hasNext()) {
             arr.add((Character) it.next());
@@ -102,6 +99,19 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < arr.size(); i++) {
             changeTextButton(arr.get(i), this.listaIDbotones[i + 1]);
             this.conjuntoLetras.add(arr.get(i));
+        }*/
+        Random rand = new Random();
+        for (int i = 1; i < listaLetras.length; i++) {
+            int randomIndexToSwap = 0;
+            while (randomIndexToSwap == 0) {
+                randomIndexToSwap = rand.nextInt(listaLetras.length);
+            }
+            char temp = listaLetras[randomIndexToSwap];
+            listaLetras[randomIndexToSwap] = listaLetras[i];
+            listaLetras[i] = temp;
+        }
+        for (int i = 0; i < listaLetras.length; i++) {
+            changeTextButton(listaLetras[i], listaIDbotones[i]);
         }
     }
 
@@ -268,4 +278,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*private boolean isTuti(String pal) {
+        return pal.contains(listaLetras[0]) && pal.contains() && pal.contains() && pal.contains() && pal.contains()
+                && pal.contains() && pal.contains();
+    }*/
 }
