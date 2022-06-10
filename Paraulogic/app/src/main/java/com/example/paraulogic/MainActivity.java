@@ -38,11 +38,23 @@ public class MainActivity extends AppCompatActivity {
     // Lista contenedora de las palabras que se pueden formar a partir 
     // del conjunto de letras.
     private TreeSet<String> listaPalabras;
+    // Atributo de tipo boolean para comprobar si por lo menos hay un tuti
+    // en el conjunto de soluciones.
+    private boolean isTuti;
+    // Contiene el mensaje a pasar a la pantalla de soluciones.
+    private StringBuilder mensajeSoluciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+    }
+
+    /**
+     * Inicializa la aplicación y los conjuntos.
+     */
+    private void init() {
         this.listaIDbotones = new int[7];
         this.listaIDbotones[0] = R.id.letraObligatoria;
         this.listaIDbotones[1] = R.id.letra1;
@@ -51,16 +63,58 @@ public class MainActivity extends AppCompatActivity {
         this.listaIDbotones[4] = R.id.letra4;
         this.listaIDbotones[5] = R.id.letra5;
         this.listaIDbotones[6] = R.id.letra6;
-        init();
+        this.isTuti = false;
+        // Hasta que el conjunto no tenga un tuti no se inicializa
+        while (!isTuti) {
+            this.mapping = new BSTMapping();
+            this.listaLetras = new char[7];
+            this.clavesMapping = new ArrayList<>();
+            this.listaPalabras = new TreeSet<>();
+            this.mensajeSoluciones = new StringBuilder();
+            initLetters();
+        }
     }
 
-    private void init() {
-        this.mapping = new BSTMapping();
-        this.listaLetras = new char[7];
-        this.clavesMapping = new ArrayList<>();
-        this.listaPalabras = new TreeSet<>();
+    /**
+     * Comprueba si hay algun tuti en el conjunto de soluciones.
+     */
+    private void initLetters() {
         configLetters();
         getDictionary();
+        Iterator it = this.listaPalabras.iterator();
+        String res = "";
+        while (it.hasNext()) {
+            res = (String) it.next();
+            //Comprobar si hay algun tuti
+            if (checkTuti(res.toUpperCase())) {
+                this.isTuti = true;
+                String aux = "<font color = 'red'>";
+                this.mensajeSoluciones.append(aux);
+                this.mensajeSoluciones.append(res);
+                this.mensajeSoluciones.append(" </ font >");
+            } else {
+                this.mensajeSoluciones.append(res);
+            }
+            this.mensajeSoluciones.append(", ");
+        }
+        if (this.mensajeSoluciones.length() > 0) {
+            // Elimina el espacio y coma de la última solución
+            this.mensajeSoluciones.deleteCharAt(this.mensajeSoluciones.length() - 1);
+            this.mensajeSoluciones.deleteCharAt(this.mensajeSoluciones.length() - 1);
+        }
+    }
+
+    /**
+     * Comprueba si la palabra pasada por parámetro es un tuti
+     *
+     * @param pal Palabra a comprobar.
+     * @return true si es tuti, false si no lo es.
+     */
+    private boolean checkTuti(@NonNull String pal) {
+        return pal.contains("" + listaLetras[0]) && pal.contains("" + listaLetras[1])
+                && pal.contains("" + listaLetras[2]) && pal.contains("" + listaLetras[3])
+                && pal.contains("" + listaLetras[4]) && pal.contains("" + listaLetras[5])
+                && pal.contains("" + listaLetras[6]);
     }
 
     /**
@@ -80,29 +134,10 @@ public class MainActivity extends AppCompatActivity {
      * Mezcla las letras displonibles menos la letra obligatoria.
      */
     public void shuffleLetters(View view) {
-        /*Iterator it = this.conjuntoLetras.iterator();
-        ArrayList<Character> arr = new ArrayList<>();
-        while (it.hasNext()) {
-            arr.add((Character) it.next());
-        }
-        Character c = arr.remove(0);
-        this.conjuntoLetras = new UnsortedArraySet(7);
         Random rand = new Random();
-        for (int i = 0; i < arr.size(); i++) {
-            int randomIndexToSwap = rand.nextInt(arr.size());
-            Character temp = arr.get(randomIndexToSwap);
-            arr.set(randomIndexToSwap, arr.get(i));
-            arr.set(i, temp);
-        }
-        this.conjuntoLetras.add(c);
-        changeTextButton(c, this.listaIDbotones[0]);
-        for (int i = 0; i < arr.size(); i++) {
-            changeTextButton(arr.get(i), this.listaIDbotones[i + 1]);
-            this.conjuntoLetras.add(arr.get(i));
-        }*/
-        Random rand = new Random();
+        int randomIndexToSwap;
         for (int i = 1; i < listaLetras.length; i++) {
-            int randomIndexToSwap = 0;
+            randomIndexToSwap = 0;
             while (randomIndexToSwap == 0) {
                 randomIndexToSwap = rand.nextInt(listaLetras.length);
             }
@@ -137,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             changeTextViewText("", id, true);
         } else {
             Context context = getApplicationContext();
-            CharSequence text = " PALABRA INCORRECTA :c !";
+            CharSequence text = " PALABRA INCORRECTA! ";
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -203,8 +238,6 @@ public class MainActivity extends AppCompatActivity {
      * Configuración aleatoria del conjunto de letras e adición letras botones.
      * Este método crea un conjunto de 7 letras alearotias y asigna a los botones
      * las letars del cojunto.
-     *
-     * @TODO: Hacer que se cree sí o sí un tuti
      */
     private void configLetters() {
         this.conjuntoLetras = new UnsortedArraySet<>(7);
@@ -220,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 this.listaLetras[i] = aux;
             }
         }
-        System.out.println(this.listaLetras);
+        //System.out.println(this.listaLetras);
         Iterator it = conjuntoLetras.iterator();
         int j = 0;
         while (it.hasNext()) {
@@ -232,15 +265,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Muestra el conjunto disponible de soluciones de palabras que se pueden
      * crear a partir del conjunto de letras que se proporciona.
-     *
-     * @Todo Comprobar si hay algun tuti
      */
     public void showInfo(View view) {
         Intent intent = new Intent(this, InfoActivity.class);
-        //Comprobar si hay algun tuti
-
-        String message = this.listaPalabras.toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        //String message = this.listaPalabras.toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_MESSAGE, this.mensajeSoluciones.toString());
         startActivity(intent);
     }
 
@@ -272,14 +302,9 @@ public class MainActivity extends AppCompatActivity {
                 line = br.readLine();
             }
             br.close();
-            System.out.println("Lista: " + this.listaPalabras.toString());
+            //System.out.println("Lista: " + this.listaPalabras.toString());
         } catch (IOException e) {
             System.out.println("Error al leer el diccionario, error: " + e.getMessage());
         }
     }
-
-    /*private boolean isTuti(String pal) {
-        return pal.contains(listaLetras[0]) && pal.contains() && pal.contains() && pal.contains() && pal.contains()
-                && pal.contains() && pal.contains();
-    }*/
 }

@@ -3,8 +3,6 @@ package com.example.paraulogic;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import Utilities.Set;
-
 /**
  * Clase para contener un conjunto de elementos, esta será empleada para
  * almacenar el conjunto
@@ -13,7 +11,7 @@ import Utilities.Set;
  * @param <E>
  * @author Sergi
  */
-public class UnsortedArraySet<E> implements Set<E> {
+public class UnsortedArraySet<E> {
 
     private E[] array;
     private int n;
@@ -34,7 +32,6 @@ public class UnsortedArraySet<E> implements Set<E> {
      * @param elem
      * @return boolean
      */
-    @Override
     public boolean contains(E elem) {
         for (int i = 0; i < n && !isEmpty(); i++) {
             if (this.array[i] != null && this.array[i].equals(elem)) {
@@ -51,7 +48,6 @@ public class UnsortedArraySet<E> implements Set<E> {
      * @param elem
      * @return boolean
      */
-    @Override
     public boolean add(E elem) {
         if (n < this.array.length) {
             int i = 0;
@@ -74,7 +70,6 @@ public class UnsortedArraySet<E> implements Set<E> {
      * @param elem
      * @return boolean
      */
-    @Override
     public boolean remove(E elem) {
         for (int i = 0; i < n && !isEmpty(); i++) {
             if (this.array[i] != null && this.array[i].equals(elem)) {
@@ -91,7 +86,6 @@ public class UnsortedArraySet<E> implements Set<E> {
      *
      * @return boolean
      */
-    @Override
     public boolean isEmpty() {
         return n == 0;
     }
@@ -99,17 +93,15 @@ public class UnsortedArraySet<E> implements Set<E> {
     /**
      * @return IteratorUnsortedArraySet
      */
-    @Override
     public Iterator iterator() {
         return new IteratorUnsortedArraySet();
     }
 
     /**
      * to string method
-     * 
+     *
      * @return String
      */
-    @Override
     public String toString() {
         return "UnsortedArraySet{" + "array=" + Arrays.deepToString(array) + ", n=" + n + '}';
     }

@@ -3,14 +3,12 @@ package com.example.paraulogic;
 import java.util.Iterator;
 import java.util.Stack;
 
-import Utilities.Mapping;
-
 /**
  * @param <K>
  * @param <V>
  * @author Sergi
  */
-public class BSTMapping<K extends Comparable<K>, V> implements Mapping<K, V> {
+public class BSTMapping<K extends Comparable<K>, V> {
 
     private Node root;
 
@@ -18,7 +16,6 @@ public class BSTMapping<K extends Comparable<K>, V> implements Mapping<K, V> {
         this.root = null;
     }
 
-    @Override
     public V get(K key) {
         return get(key, root); // Es como el contains del set
     }
@@ -43,7 +40,6 @@ public class BSTMapping<K extends Comparable<K>, V> implements Mapping<K, V> {
         }
     }
 
-    @Override
     public V put(K key, V value) {
         Cerca cerca = new Cerca(null);
         this.root = put(key, value, root, cerca);
@@ -70,7 +66,6 @@ public class BSTMapping<K extends Comparable<K>, V> implements Mapping<K, V> {
         }
     }
 
-    @Override
     public V remove(K key) {
         Cerca cerca = new Cerca(null);
         this.root = remove(key, root, cerca);
@@ -113,12 +108,10 @@ public class BSTMapping<K extends Comparable<K>, V> implements Mapping<K, V> {
         return current;
     }
 
-    @Override
     public boolean isEmpty() {
         return this.root == null;
     }
 
-    @Override
     public Iterator iterator() {
         return new IteratorBSTMapping();
     }
