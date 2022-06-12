@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         String res = "";
         while (it.hasNext()) {
             res = (String) it.next();
-            //Comprobar si hay algun tuti
+            // Comprobar si hay algun tuti
             if (checkTuti(res.toUpperCase())) {
                 this.isTuti = true;
                 String aux = "<font color = 'red'>";
@@ -242,7 +242,8 @@ public class MainActivity extends AppCompatActivity {
     private void configLetters() {
         this.conjuntoLetras = new UnsortedArraySet<>(7);
         Random ran = new Random();
-        char aux = (char) (ran.nextInt(5) + 'A');
+        char[] vocales = {'A', 'E', 'I', 'O', 'U'};
+        char aux = vocales[ran.nextInt(5)];
         this.listaLetras[0] = aux;
         conjuntoLetras.add(aux);
         for (int i = 1; i < 7; i++) {
@@ -268,8 +269,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void showInfo(View view) {
         Intent intent = new Intent(this, InfoActivity.class);
-        //String message = this.listaPalabras.toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(EXTRA_MESSAGE, this.mensajeSoluciones.toString());
         startActivity(intent);
     }
@@ -284,20 +283,21 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line;
             line = br.readLine();
+            boolean contiene;
             while (line != null) {
-                boolean contiene = false;
-                // Comprobar si cumple las conciones para ser una poasible solucion
-                for (int i = 0; i < line.length(); i++) {
-                    if (this.conjuntoLetras.contains(line.toUpperCase().charAt(i))) {
-                        contiene = true;
-                    } else {
-                        contiene = false;
-                        break;
+                contiene = true;
+                // Comprobar si cumple las conciones para ser una posible solucion
+                if (line.length() >= 3) { // Minimo 3 caracteres
+                    for (int i = 0; i < line.length(); i++) {
+                        if (!this.conjuntoLetras.contains(line.toUpperCase().charAt(i))) {
+                            contiene = false;
+                            break;
+                        }
                     }
-                }
-                if (contiene) {
-                    // Añadir a la lista de palabras
-                    this.listaPalabras.add(line);
+                    if (contiene) {
+                        // Añadir a la lista de palabras
+                        this.listaPalabras.add(line);
+                    }
                 }
                 line = br.readLine();
             }
